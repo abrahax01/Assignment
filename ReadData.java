@@ -3,6 +3,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+// CONSTRUCTOR
 public class ReadData 
 {
     private String fileName;
@@ -31,12 +32,12 @@ public class ReadData
         System.out.println("FILE OPENED");
     }
 
-    // READ FILE, WITH WORD COMPARISON
+    // READ FILE
     public void readFile() 
     {
         String line = "";
         int i = 0;
-        dataByRow = new String[292][6];
+        dataByRow = new String[500][6];
 
         try 
         {
@@ -50,8 +51,8 @@ public class ReadData
                 dataArray = line.split(",");
 
                 int y = 0;
-                // dataByRow[i][y] = dataArray[i];
 
+                // STORE ELEMENTS OF ARRAY INTO 2D ARRAY (EASIER TO READ AND SEND)
                 for (String element : dataArray) 
                 {  
                     dataByRow[i][y] = element;  
@@ -120,7 +121,6 @@ public class ReadData
         catch (FileNotFoundException e) 
         {
             System.out.println("File Not found");
-            e.printStackTrace();
         }
     }
 
