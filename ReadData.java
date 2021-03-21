@@ -1,159 +1,152 @@
 // Class to Read the CSV file
-import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.util.Scanner;
 
 public class ReadData 
 {
-    String file = "MLdata.csv";
-    String line = "";
-    String[] values;
-    
-    int gender = 0, genderMale = 0, genderFemale = 0;
-    int pOwnBusiness = 0, yesOwnBusiness = 0, noOwnBusiness = 0;
-    int partTimeJob = 0, yesJob = 0, noJob = 0;
-    int address = 0, rural = 0, urban = 0;
-    int studyBusiness = 0, yesStudyBusiness = 0, noStudyBusiness = 0;
-    int entrepreneur = 0, yesEntrepreneur = 0, noEntrepreneur = 0;
-    
-    // CONSTRUCTOR
-    public ReadData()
+    private String fileName;
+    private File fileExample;
+    private String[] dataArray;
+    private String[][] dataByRow = {};
+
+    int totalData = 0;
+    int genderMale = 0, genderFemale = 0;
+    int yesOwnBusiness = 0, noOwnBusiness = 0;
+    int yesJob = 0, noJob = 0;
+    int rural = 0, urban = 0;
+    int yesStudyBusiness = 0, noStudyBusiness = 0;
+    int yesEntrepreneur = 0, noEntrepreneur = 0;
+
+    // GET NAME FROM CONTROL CLASS
+    public ReadData(String fileName)
     {
-        // READ DATA AND STORES DATA TOTALS (EG: THERE IS 149 FEMALES IN MLdata.csv)
-        try
-        {
-            BufferedReader br = new BufferedReader(new FileReader(file));
-            {
-                while((line = br.readLine()) != null)
-                {
-                    this.values = line.split(",");
-                    if("Male".equals(this.values[0]) )
-                    {
-
-                        genderMale++;
-                        gender++;
-                    }
-                    else if ("Female".equals(this.values[0])) 
-                    {
-                        genderFemale++;
-                        gender++;
-                    } 
-                    if("Yes".equals(this.values[1]))
-                    {
-                        yesOwnBusiness++;
-                        pOwnBusiness++;
-                    }
-                    else if("No".equals(this.values[1]))
-                    {
-                        noOwnBusiness++;
-                        pOwnBusiness++;
-                    }
-                    if("Yes".equals(this.values[2]))
-                    {
-                        yesJob++;
-                        partTimeJob++;
-                    }
-                    else if("No".equals(this.values[2]))
-                    {
-                        noJob++;
-                        partTimeJob++;
-                    }
-                    if("Rural".equals(this.values[3]))
-                    {
-                        rural++;
-                        address++;
-                    }
-                    else if("Urban  ".equals(this.values[3]) || "Urban".equals(this.values[3]))
-                    {
-                        urban++;
-                        address++;
-                    }
-                    if("Yes".equals(this.values[4]))
-                    {
-                        studyBusiness++;
-                        yesStudyBusiness++;
-                    }
-                    else if("No".equals(this.values[4]))
-                    {
-                        studyBusiness++;
-                        noStudyBusiness++;
-                    }
-                    if("Yes".equals(this.values[5]))
-                    {
-                        entrepreneur++;
-                        yesEntrepreneur++;
-                    }
-                    else if("No".equals(this.values[5]))
-                    {
-                        entrepreneur++;
-                        noEntrepreneur++;
-                    }
-
-                    
-                    // System.out.println(gender + " Male: " + genderMale + " Female: " + genderFemale);
-                    // System.out.println(pOwnBusiness + " yes: " + yesOwnBusiness + " no: " + noOwnBusiness);
-                    // System.out.println(partTimeJob + " yes: " + yesJob + " no: " + noJob);
-                    // System.out.println(address + " Rural: " + rural + " Urban: " + urban);
-                    // System.out.println(studyBusiness + " Yes: " + yesStudyBusiness + " No: " + noStudyBusiness);
-                    // System.out.println(entrepreneur + " Yes: " + yesEntrepreneur + " No: " + noEntrepreneur);
-                    // System.out.println(values[0] + "  " + values[1] + "  " + 
-                    //                    values[2] + "  " + values[3] + "  " +
-                    //                    values[4] + "  " + values[5]
-                    //                    );
-    
-                }
-                br.close();
-            }
-        }
-        catch(FileNotFoundException e)
-        {
-            System.out.println("File not found");
-        }
-        catch(IOException e)
-        {
-            System.out.println("No more lines"); 
-        }
+        this.fileName = fileName; 
     }
 
-    // PRINT 
-    public String toString()
+    // OPEN THE FILE
+    public void openFile()
     {
-        return ("Line: " + gender + " Male: " + genderMale + " Female: " + genderFemale +
-        " Yes: " + yesOwnBusiness + " No: " + noOwnBusiness );
+        fileExample = new File(this.fileName); 
+        System.out.println("FILE OPENED");
+    }
+
+    // READ FILE, WITH WORD COMPARISON
+    public void readFile() 
+    {
+        String line = "";
+        int i = 0;
+        dataByRow = new String[292][6];
+
+        try 
+        {
+            // SCAN(READ) FILE 
+            Scanner scanner1 = new Scanner(this.fileExample);
+            
+            // CHECKS FILE FOR NEXT LINE
+            while(scanner1.hasNextLine()) 
+            {
+                line = scanner1.nextLine();
+                dataArray = line.split(",");
+
+                int y = 0;
+                // dataByRow[i][y] = dataArray[i];
+
+                for (String element : dataArray) 
+                {  
+                    dataByRow[i][y] = element;  
+                    y++;
+
+                }  
+
+                i++;
+                
+                // STORE TOTALS OF EACH FEATURE
+                if("Male".equals(dataArray[0]) )
+                {
+                    genderMale++;
+                    totalData++;
+                }
+                else if ("Female".equals(dataArray[0])) 
+                {
+                    genderFemale++;
+                    totalData++;
+                } 
+                if("Yes".equals(dataArray[1]))
+                {
+                    yesOwnBusiness++;                        
+                }
+                else if("No".equals(dataArray[1]))
+                {
+                    noOwnBusiness++;                        
+                }
+                if("Yes".equals(dataArray[2]))
+                {
+                    yesJob++;                        
+                }
+                else if("No".equals(dataArray[2]))
+                {
+                    noJob++;                        
+                }
+                if("Rural".equals(dataArray[3]))
+                {
+                    rural++;                    
+                }
+                else if("Urban  ".equals(dataArray[3]) || "Urban".equals(dataArray[3]))
+                {
+                    urban++;                        
+                }
+                if("Yes".equals(dataArray[4]))
+                {                        
+                    yesStudyBusiness++;
+                }
+                else if("No".equals(dataArray[4]))
+                {                        
+                    noStudyBusiness++;
+                }
+                if("Yes".equals(dataArray[5]))
+                {                        
+                    yesEntrepreneur++;
+                }
+                else if("No".equals(dataArray[5]))
+                {
+                    noEntrepreneur++;
+                }                               
+            }
+            
+            scanner1.close();
+
+        } 
+        catch (FileNotFoundException e) 
+        {
+            System.out.println("File Not found");
+            e.printStackTrace();
+        }
     }
 
     // GETTERS AND SETTERS
-    public String getFile() {
-        return file;
+    public File getFileExample() {
+        return fileExample;
     }
 
-    public void setFile(String file) {
-        this.file = file;
+    public void setFileExample(File fileExample) {
+        this.fileExample = fileExample;
     }
 
-    public String getLine() {
-        return line;
+    public String[][] getDataByRow() {
+        return dataByRow;
     }
 
-    public void setLine(String line) {
-        this.line = line;
+    public void setDataByRow(String[][] dataByRow) {
+        this.dataByRow = dataByRow;
     }
 
-    public String[] getValues() {
-        return values;
+    public int getTotalData() {
+        return totalData;
     }
 
-    public void setValues(String[] values) {
-        this.values = values;
-    }
-
-    public int getGender() {
-        return gender;
-    }
-
-    public void setGender(int gender) {
-        this.gender = gender;
+    public void setTotalData(int totalData) {
+        this.totalData = totalData;
     }
 
     public int getGenderMale() {
@@ -172,14 +165,6 @@ public class ReadData
         this.genderFemale = genderFemale;
     }
 
-    public int getpOwnBusiness() {
-        return pOwnBusiness;
-    }
-
-    public void setpOwnBusiness(int pOwnBusiness) {
-        this.pOwnBusiness = pOwnBusiness;
-    }
-
     public int getYesOwnBusiness() {
         return yesOwnBusiness;
     }
@@ -194,14 +179,6 @@ public class ReadData
 
     public void setNoOwnBusiness(int noOwnBusiness) {
         this.noOwnBusiness = noOwnBusiness;
-    }
-
-    public int getPartTimeJob() {
-        return partTimeJob;
-    }
-
-    public void setPartTimeJob(int partTimeJob) {
-        this.partTimeJob = partTimeJob;
     }
 
     public int getYesJob() {
@@ -220,14 +197,6 @@ public class ReadData
         this.noJob = noJob;
     }
 
-    public int getAddress() {
-        return address;
-    }
-
-    public void setAddress(int address) {
-        this.address = address;
-    }
-
     public int getRural() {
         return rural;
     }
@@ -242,14 +211,6 @@ public class ReadData
 
     public void setUrban(int urban) {
         this.urban = urban;
-    }
-
-    public int getStudyBusiness() {
-        return studyBusiness;
-    }
-
-    public void setStudyBusiness(int studyBusiness) {
-        this.studyBusiness = studyBusiness;
     }
 
     public int getYesStudyBusiness() {
@@ -268,14 +229,6 @@ public class ReadData
         this.noStudyBusiness = noStudyBusiness;
     }
 
-    public int getEntrepreneur() {
-        return entrepreneur;
-    }
-
-    public void setEntrepreneur(int entrepreneur) {
-        this.entrepreneur = entrepreneur;
-    }
-
     public int getYesEntrepreneur() {
         return yesEntrepreneur;
     }
@@ -291,5 +244,4 @@ public class ReadData
     public void setNoEntrepreneur(int noEntrepreneur) {
         this.noEntrepreneur = noEntrepreneur;
     }
-
 }
