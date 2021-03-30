@@ -6,15 +6,19 @@ public class Control
         ReadData csv = new ReadData("MLdata.csv");
         csv.openFile();
         csv.readFile();
-        
-        String[][] stored = csv.getDataByRow();
-        int urban = csv.getUrban();
+    
+        csv.naiveBayes("Female", "Yes", "No", "Rural", "Yes");
 
-        for(int i = 0; i < 6; i++)
-        {
-            System.out.print(stored[3][i] + " ");
+        // String[][] stored = csv.getDataByRow();
+        // for(int i = 0; i < 6; i++)
+        // {
+        //     System.out.print(stored[3][i] + " ");
             
-        }
-        System.out.println("\n" + urban);
+        // }
+
+        // System.out.println("\n");
+        // MachineLearning test = new MachineLearning(stored, "MLdata.csv");
+        
+        
     }
 }
