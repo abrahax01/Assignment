@@ -3,7 +3,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-// CONSTRUCTOR
+import javax.lang.model.element.Element;
+
 public class ReadData 
 {
     private String fileName;
@@ -11,18 +12,19 @@ public class ReadData
     private String[] dataArray;
     private String[][] dataByRow = {};
 
-    int totalData = 0;
-    int genderMale = 0, genderFemale = 0;
-    int yesOwnBusiness = 0, noOwnBusiness = 0;
-    int yesJob = 0, noJob = 0;
-    int rural = 0, urban = 0;
-    int yesStudyBusiness = 0, noStudyBusiness = 0;
-    int yesEntrepreneur = 0, noEntrepreneur = 0;
+    private int totalData = 0;
+    private int genderMale = 0, genderFemale = 0;
+    private int yesOwnBusiness = 0, noOwnBusiness = 0;
+    private int yesJob = 0, noJob = 0;
+    private int rural = 0, urban = 0;
+    private int yesStudyBusiness = 0, noStudyBusiness = 0;
+    private int yesEntrepreneur = 0, noEntrepreneur = 0;
 
     // GET NAME FROM CONTROL CLASS
     public ReadData(String fileName)
     {
         this.fileName = fileName; 
+       
     }
 
     // OPEN THE FILE
@@ -122,6 +124,80 @@ public class ReadData
         {
             System.out.println("File Not found");
         }
+
+    }
+
+    // NAIVE BAYES 
+    public double naiveBayes(String gender, String ownBusiness, String partTimeJob, String area, String studyBusiness)
+    {
+        double probOfEntrepreneur = 0;
+
+        // PROBABILITY OF ENTREPRENEUR
+        double P_Y_Entrepreneur = (double)yesEntrepreneur / (double)totalData; // 0.56
+        double P_N_Entrepreneur = (double)noEntrepreneur / (double)totalData; // 0.44
+        
+        // PROBABILITY OF EVIDENCE
+        double PX_Male = (double)genderMale / (double)totalData; // 0.48
+        double PX_Female = (double)genderFemale / (double)totalData; // 0.52
+
+        double PX_Y_OwnBusiness = (double)yesOwnBusiness / (double)totalData; // 0.44
+        double PX_N_OwnBusiness = (double)noOwnBusiness / (double)totalData; // 0.56
+
+        double PX_Y_PartTimeJob = (double)yesJob / (double)totalData; // 0.49 
+        double PX_N_PartTimeJob = (double)noJob / (double)totalData; // 0.51
+
+        double PX_Rural = (double)rural / (double)totalData; // 0.50 
+        double PX_Urban = (double)urban / (double)totalData; // 0.50
+
+        double PX_Y_StudyBusiness = (double)yesStudyBusiness / (double)totalData; // 0.49
+        double PX_N_StudyBusiness = (double)noStudyBusiness / (double)totalData; // 0.51  
+
+        // PROBABILITY OF LIKELIHOOD FOR YES 
+        int currentDataWithSameFeaturesAndYesEntrepreneur = 0, currentDataWithSameFeaturesAndNoEntrepreneur = 0;
+        int male_Y_Entrepreneur = 0, male_N_Entrepreneur = 0;
+        // int Male_Y_OwnBusiness = 0, Male_N_OwnBusiness = 0;
+        int female_Y_Entrepreneur = 0, female_N_Entrepreneur = 0;
+
+        for (String[] element: dataByRow)
+        {   
+            // COMPARE DATA SENT WITH CURRENT DATA
+            if(gender.equals(element[0]) && ownBusiness.equals(element[1]) && partTimeJob.equals(element[2]) && area.equals(element[3]) && studyBusiness.equals(element[4]) && "Yes".equals(element[5]))
+            {
+                currentDataWithSameFeaturesAndYesEntrepreneur++;
+            }
+            else if(gender.equals(element[0]) && ownBusiness.equals(element[1]) && partTimeJob.equals(element[2]) && area.equals(element[3]) && studyBusiness.equals(element[4]) && "No".equals(element[5]))
+            {
+                currentDataWithSameFeaturesAndNoEntrepreneur++;
+            }
+
+            // MALE ENTREPRENEUR
+            if("Male".equals(element[0]) && "Yes".equals(element[5]))
+            {
+                male_Y_Entrepreneur++;
+            }
+            else if("Male".equals(element[0]) && "No".equals(element[5]))
+            {
+                male_N_Entrepreneur++;
+            }
+
+            // FEMALE ENTREPRENEUR
+            else if("Female".equals(element[0]) && "Yes".equals(element[5]))
+            {
+                female_Y_Entrepreneur++;
+            }
+            else if("Female".equals(element[0]) && "No".equals(element[5]))
+            {
+                female_N_Entrepreneur++;
+            }
+            
+        }
+        
+        System.out.println("Current data YES: " + currentDataWithSameFeaturesAndYesEntrepreneur + "\nCurrent data NO: " + currentDataWithSameFeaturesAndNoEntrepreneur);
+        System.out.println("MALE YES ENT: " + male_Y_Entrepreneur + " " + "FEMALE YES ENT: " + female_Y_Entrepreneur);
+        System.out.println("MALE NO ENT : " + male_N_Entrepreneur + " " + "FEMALE NO ENT : " + female_N_Entrepreneur);
+
+        // System.out.printf("%.2f", PX_N_StudyBusiness);
+        return probOfEntrepreneur;
     }
 
     // GETTERS AND SETTERS
@@ -244,4 +320,5 @@ public class ReadData
     public void setNoEntrepreneur(int noEntrepreneur) {
         this.noEntrepreneur = noEntrepreneur;
     }
+
 }
