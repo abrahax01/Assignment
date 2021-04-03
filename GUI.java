@@ -1,4 +1,5 @@
-// Program to make a GUI with events, stores entered text from GUI into an array and then displays it 
+// Program to make a GUI with events
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Hashtable;
@@ -18,7 +19,7 @@ public class GUI extends JFrame implements ActionListener
     private static final long serialVersionUID = 1L;
     
     String gender1, ownBusiness1, partTimeJob1, area1, studyBusiness1; 
-    String[] genders = {"Male", "Female"}, yesNo = {"Yes", "No"}, areas = {"Urban", "Rural"};
+    String[] genders = {" ", "Male", "Female"}, yesNo = {" ", "Yes", "No"}, areas = {" ", "Urban", "Rural"};
     boolean event1 = false, event2 = false, event3 = false, event4 = false, event5 = false;
     Hashtable<String, Integer> dataDictionary;
     String[][] dataByRow;
@@ -105,6 +106,7 @@ public class GUI extends JFrame implements ActionListener
     {
         if(e.getSource() == genderBox)
         {
+            event1 = false;
             gender1 = (String) genderBox.getSelectedItem();
             JOptionPane.showMessageDialog(this, "You selected: " + gender1);
             if("Male".equals(gender1) || "Female".equals(gender1))
@@ -116,6 +118,7 @@ public class GUI extends JFrame implements ActionListener
 
         if(e.getSource() == ownBusinessBox)
         {
+            event2 = false;
             ownBusiness1 = (String) ownBusinessBox.getSelectedItem();
             JOptionPane.showMessageDialog(this, "You selected: " + ownBusiness1);
             if("Yes".equals(ownBusiness1) || "No".equals(ownBusiness1))
@@ -127,6 +130,7 @@ public class GUI extends JFrame implements ActionListener
 
         if(e.getSource() == partTimeJobBox)
         {
+            event3 = false; 
             partTimeJob1 = (String) partTimeJobBox.getSelectedItem();
             JOptionPane.showMessageDialog(this, "You selected: " + partTimeJob1);
             if("Yes".equals(partTimeJob1) || "No".equals(partTimeJob1))
@@ -138,6 +142,7 @@ public class GUI extends JFrame implements ActionListener
 
         if(e.getSource() == areaBox)
         {
+            event4 = false;
             area1 = (String) areaBox.getSelectedItem();
             JOptionPane.showMessageDialog(this, "You selected: " + area1);
             if("Urban".equals(area1) || "Rural".equals(area1))
@@ -149,6 +154,7 @@ public class GUI extends JFrame implements ActionListener
 
         if(e.getSource() == studyBusinessBox)
         {
+            event5 = false;
             studyBusiness1 = (String) studyBusinessBox.getSelectedItem();
             JOptionPane.showMessageDialog(this, "You selected: " + studyBusiness1);
             if("Yes".equals(studyBusiness1) || "No".equals(studyBusiness1))
@@ -199,4 +205,3 @@ public class GUI extends JFrame implements ActionListener
 
     } // END OF ACTION PERFORMED
 }
-
