@@ -26,22 +26,8 @@ public class Control
         dataDictionary.put("noEntrepreneur", csv.getNoEntrepreneur());
         dataDictionary.put("totalData", csv.getTotalData());
 
-        System.out.println(csv.getTotalData());
-
-        MachineLearning naiveBayes = new MachineLearning("Male", "Yes", "Yes", "Urban", "Yes", dataDictionary, dataByRow);
-    
-        // csv.naiveBayes("Male", "Yes", "Yes", "Urban", "Yes");
-
-        // String[][] stored = csv.getDataByRow();
-        // for(int i = 0; i < 6; i++)
-        // {
-        //     System.out.print(stored[3][i] + " ");
-            
-        // }
-
-        // System.out.println("\n");
-        // MachineLearning test = new MachineLearning(stored, "MLdata.csv");
-        
+        new GUI("New GUI", dataDictionary, dataByRow);
+        // new MachineLearning("Male", "No", "No", "Rural", "No", dataDictionary, dataByRow);
         
     }
 }
