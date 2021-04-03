@@ -1,4 +1,5 @@
-// Class to Read the CSV file
+// Class to Read the CSV file + store totals of features
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
