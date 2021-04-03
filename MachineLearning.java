@@ -1,3 +1,5 @@
+// Class to do probabilty of becoming entrepreneur or not
+
 import java.util.Hashtable;
 
 // NAIVE BAYES ALGORITHM
