@@ -1,6 +1,8 @@
+// Program to predict if a student with features entered by user will become an entrepreneur or not using naive bayes theorem
+// Author: Abraham Izarra/ C19340801
+
 import java.util.Hashtable;
 
-// Will try to do Machine learning
 public class Control 
 {
     public static void main(String[] args) 
@@ -26,7 +28,7 @@ public class Control
         dataDictionary.put("noEntrepreneur", csv.getNoEntrepreneur());
         dataDictionary.put("totalData", csv.getTotalData());
 
-        new GUI("New GUI", dataDictionary, dataByRow);
+        new GUI("New Entrepreneur?", dataDictionary, dataByRow);
         
     }
 }
