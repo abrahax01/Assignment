@@ -243,23 +243,14 @@ public class MachineLearning
         probabilityYesEntrepreneur = numerator1 / denominator;
         probabilityNoEntrepreneur = numerator0 / denominator;
 
-        // PRINT TESTS 
-        System.out.print("Yes ENT: ");
-        System.out.printf("%.2f ", probabilityYesEntrepreneur);
-        System.out.print("No ENT: ");
-        System.out.printf("%.2f \n", probabilityNoEntrepreneur); 
-        
-        probabilityYesEntrepreneur *= 100; 
-        probabilityNoEntrepreneur *= 100;
-
         // ANSWERS
         if(probabilityYesEntrepreneur > probabilityNoEntrepreneur)
         {
-            answer = "Entrepreneur, their probabilities of becoming an entrepreneur are: " +  probabilityYesEntrepreneur;
+            answer = "Entrepreneur, their probabilities of becoming an entrepreneur are great";
         }
         else
         {
-            answer = "No Entrepreneur, their probabilities of NOT becoming an entrepreneur are: " + probabilityNoEntrepreneur;
+            answer = "No Entrepreneur, their probabilities of becoming an entrepreneur are not great";
         }
 
     } 
