@@ -27,7 +27,6 @@ public class Control
         dataDictionary.put("totalData", csv.getTotalData());
 
         new GUI("New GUI", dataDictionary, dataByRow);
-        // new MachineLearning("Male", "No", "No", "Rural", "No", dataDictionary, dataByRow);
         
     }
 }
