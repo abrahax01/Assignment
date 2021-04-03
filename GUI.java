@@ -6,25 +6,29 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
 
 // GUI CLASS 
 public class GUI extends JFrame implements ActionListener
 {
     private static final long serialVersionUID = 1L;
     
-    // ATTRIBUTES
-    JButton CheckProbability;
-    JTextField gender, ownBusiness, partTimeJob, area, studyBusiness;
-    JTextArea result;
     String gender1, ownBusiness1, partTimeJob1, area1, studyBusiness1; 
+    String[] genders = {"Male", "Female"}, yesNo = {"Yes", "No"}, areas = {"Urban", "Rural"};
     boolean event1 = false, event2 = false, event3 = false, event4 = false, event5 = false;
     Hashtable<String, Integer> dataDictionary;
     String[][] dataByRow;
     String answers;
+
+    // ATTRIBUTES
+    JComboBox<String> genderBox, ownBusinessBox, partTimeJobBox, areaBox, studyBusinessBox; 
+    JLabel genderLabel, ownBusinessLabel, partTimeJobLabel, areaLabel, studyBusinessLabel;
+    JButton CheckProbability;
+    JTextArea result;
 
     GUI(String title, Hashtable<String, Integer> dataDictionary, String[][] dataByRow)
     { 
@@ -32,33 +36,49 @@ public class GUI extends JFrame implements ActionListener
         this.dataDictionary = dataDictionary;
         this.dataByRow = dataByRow;
         
-        setSize(800,300);
+        setSize(1000,300);
         setLayout(new FlowLayout());
 
-        // TEXT FIELDS
-        gender = new JTextField("Gender");
-        ownBusiness = new JTextField("Parents own a business?");
-        partTimeJob = new JTextField("Part time job?");
-        area = new JTextField("Area of residence");
-        studyBusiness = new JTextField("Study business?");
+        // LABELS
+        genderLabel = new JLabel("Gender: ");
+        ownBusinessLabel = new JLabel("Parent own a business?: ");
+        partTimeJobLabel = new JLabel("Has part time job?: ");
+        areaLabel = new JLabel("Area: ");
+        studyBusinessLabel = new JLabel("Study business?: ");
 
-        gender.setToolTipText("Please type gender of student here");
-        ownBusiness.setToolTipText("Please type 'YES' or 'No' if parents own a business");
-        partTimeJob.setToolTipText("Please type type 'YES' or 'No' if student has a part time job");
-        area.setToolTipText("Please type type 'Urban' or 'Rural' if student lives in urban area or rural area");
-        studyBusiness.setToolTipText("Please type type 'YES' or 'No' if student studies business");
+        // BOXES 
+        genderBox = new JComboBox<String>(genders);
+        ownBusinessBox = new JComboBox<String>(yesNo);
+        partTimeJobBox = new JComboBox<String>(yesNo);
+        areaBox = new JComboBox<String>(areas);
+        studyBusinessBox = new JComboBox<String>(yesNo);
 
-        add(gender);
-        add(ownBusiness);
-        add(partTimeJob);
-        add(area);
-        add(studyBusiness);
+        genderBox.setToolTipText("Please enter Gender here");
+        ownBusinessBox.setToolTipText("Please enter 'YES' or 'No' if parents own a business");
+        partTimeJobBox.setToolTipText("Please enter 'YES' or 'No' if student has a part time job");
+        areaBox.setToolTipText("Please enter 'Urban' or 'Rural' if student lives in urban area or rural area");
+        studyBusinessBox.setToolTipText("Please enter 'YES' or 'No' if student studies business");
 
-        gender.addActionListener(this);
-        ownBusiness.addActionListener(this);
-        partTimeJob.addActionListener(this);
-        area.addActionListener(this);
-        studyBusiness.addActionListener(this);
+        add(genderLabel);
+        add(genderBox);
+
+        add(ownBusinessLabel);
+        add(ownBusinessBox);
+
+        add(partTimeJobLabel);
+        add(partTimeJobBox);
+
+        add(areaLabel);
+        add(areaBox);
+
+        add(studyBusinessLabel);
+        add(studyBusinessBox);
+
+        genderBox.addActionListener(this);
+        ownBusinessBox.addActionListener(this);
+        partTimeJobBox.addActionListener(this);
+        areaBox.addActionListener(this);
+        studyBusinessBox.addActionListener(this);
 
         // BUTTONS
         CheckProbability = new JButton("Check Probability");
@@ -83,68 +103,60 @@ public class GUI extends JFrame implements ActionListener
     // USER RESULTS TO A PERFORMED ACTION
     public void actionPerformed(ActionEvent e)
     {
-        // TEXT EVENTS
-        if (e.getSource() == gender )
+        if(e.getSource() == genderBox)
         {
-            event1 = false;
-            gender1 = gender.getText();
-            JOptionPane.showMessageDialog(this, "You entered: " + gender1);
-            System.out.println("You Entered: " + gender1);
+            gender1 = (String) genderBox.getSelectedItem();
+            JOptionPane.showMessageDialog(this, "You selected: " + gender1);
             if("Male".equals(gender1) || "Female".equals(gender1))
             {
                 event1 = true;
-            }
+            } 
+            
         }
 
-        if (e.getSource() == ownBusiness)
+        if(e.getSource() == ownBusinessBox)
         {
-            event2 = false;
-            ownBusiness1 = ownBusiness.getText();
-            JOptionPane.showMessageDialog(this, "You entered: " + ownBusiness1);
-            System.out.println("You Entered: " + ownBusiness1);
+            ownBusiness1 = (String) ownBusinessBox.getSelectedItem();
+            JOptionPane.showMessageDialog(this, "You selected: " + ownBusiness1);
             if("Yes".equals(ownBusiness1) || "No".equals(ownBusiness1))
             {
                 event2 = true;
-            }
+            } 
+            
+        } 
 
-        }
-
-        if (e.getSource() == partTimeJob)
+        if(e.getSource() == partTimeJobBox)
         {
-            event3 = false;
-            partTimeJob1 = partTimeJob.getText();
-            JOptionPane.showMessageDialog(this, "You entered: " + partTimeJob1);
-            System.out.println("You Entered: " + partTimeJob1);
+            partTimeJob1 = (String) partTimeJobBox.getSelectedItem();
+            JOptionPane.showMessageDialog(this, "You selected: " + partTimeJob1);
             if("Yes".equals(partTimeJob1) || "No".equals(partTimeJob1))
             {
                 event3 = true;
-            }
-        }
+            } 
+            
+        } 
 
-        if (e.getSource() == area)
+        if(e.getSource() == areaBox)
         {
-            event4 = false;
-            area1 = area.getText();
-            JOptionPane.showMessageDialog(this, "You entered: " + area1);
-            System.out.println("You Entered: " + area1);
+            area1 = (String) areaBox.getSelectedItem();
+            JOptionPane.showMessageDialog(this, "You selected: " + area1);
             if("Urban".equals(area1) || "Rural".equals(area1))
             {
                 event4 = true;
-            }
-        }    
-        
-        if (e.getSource() == studyBusiness)
+            } 
+            
+        } 
+
+        if(e.getSource() == studyBusinessBox)
         {
-            event5 = false;
-            studyBusiness1 = studyBusiness.getText();
-            JOptionPane.showMessageDialog(this, "You entered: " + studyBusiness1);
-            System.out.println("You Entered: " + studyBusiness1);
+            studyBusiness1 = (String) studyBusinessBox.getSelectedItem();
+            JOptionPane.showMessageDialog(this, "You selected: " + studyBusiness1);
             if("Yes".equals(studyBusiness1) || "No".equals(studyBusiness1))
             {
                 event5 = true;
-            }
+            } 
             
-        }
+        } 
 
         // BUTTON EVENTS
         if (e.getSource() == CheckProbability)
