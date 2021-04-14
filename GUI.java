@@ -94,8 +94,7 @@ public class GUI extends JFrame implements ActionListener
 
         // RESULT TXT FIELD
         result = new JTextArea("Results");
-        add(result);
-
+        
         // SHOW THE BUTTONS, TEXT FIELDS
         setVisible(true);
 
@@ -175,7 +174,9 @@ public class GUI extends JFrame implements ActionListener
                 MachineLearning probabilities = new MachineLearning(gender1, ownBusiness1, partTimeJob1, area1, studyBusiness1, dataDictionary, dataByRow);
                 answers = probabilities.toString();
 
+                add(result);
                 result.setText("Results: " + answers);
+                
             }
             else
             {
