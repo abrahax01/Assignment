@@ -10,7 +10,6 @@ public class MachineLearning
     double probabilityYesEntrepreneur = 0, probabilityNoEntrepreneur = 0;
     double numerator1 = 0, numerator0 = 0, denominator = 0;
     String answer;
-    double[] toReturn = new double[2];
 
     // NAIVE BAYES 
     public MachineLearning(String gender, String ownBusiness, String partTimeJob, String area, String studyBusiness, Hashtable<String, Integer> dataDictonary, String[][] dataByRow) 
